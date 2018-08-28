@@ -1,0 +1,35 @@
+;;;; laboratorio6.lisp
+;;;; Disciplina de IA - 2017 / 2018
+;;;; Ficha de Laboratório nº6 - Apoio ao 1º projeto
+;;;; Autor: 
+
+
+;;; Tabuleiros
+
+(defun tabuleiro-vazio (&optional (dimensao 14))
+  "Retorna um tabuleiro 14x14 (default) com as casas vazias"
+	(make-list dimensao :initial-element (make-list dimensao :initial-element '0))
+)
+
+(defun tabuleiro-teste ()
+  "Retorna um tabuleiro de teste 14x14 com 4 quadrados 1x1, 1 quadrado 2x2 e 1 cruz"
+	'(
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+	(0 0 0 0 0 0 0 0 0 0 1 0 0 0)
+	(0 0 0 0 0 0 0 0 0 1 1 1 0 0)
+	(0 0 0 0 0 0 0 0 0 0 1 0 0 0)
+	(0 0 0 0 0 0 0 0 1 1 0 0 0 0)
+	(0 0 0 0 0 0 0 0 1 1 0 1 0 0)
+	(0 0 0 0 0 0 0 0 0 0 1 0 1 0)
+	(0 0 0 0 0 0 0 0 0 0 0 0 0 1)
+	)
+)
+
+
+;;; Exercicios
