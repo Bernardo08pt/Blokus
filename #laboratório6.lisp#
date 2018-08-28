@@ -1,6 +1,6 @@
 ;;;; laboratorio6.lisp
 ;;;; Disciplina de IA - 2017 / 2018
-;;;; Ficha de Laboratório nº6 - Apoio ao 1º projeto
+;;;; Ficha de LaboratÃ³rio nÂº6 - Apoio ao 1Âº projeto
 ;;;; Autor: 
 
 
@@ -56,7 +56,7 @@
   (mapcar #'(lambda (celula) (casa-vaziap (car celula) (car (cdr celula)) tabuleiro)) listaCelulas)  
 )
 
-;;; Função que recebe um índice, uma lista e um valor (por default o valor é 1) e substitui pelo valor pretendido nessa posição
+;;; FunÃ§Ã£o que recebe um Ã­ndice, uma lista e um valor (por default o valor Ã© 1) e substitui pelo valor pretendido nessa posiÃ§Ã£o
 (defun substituir-posicao (indice lista &optional (valor 1))
   (cond
      ((= indice 0) (cons valor (cdr lista)))
@@ -64,7 +64,7 @@
    )
 )
 
-;;; Função que recebe dois índices, o tabuleiro e um valor (por default o valor é 1). A função deverá retornar o tabuleiro com a célula substituída pelo valor pretendido.
+;;; FunÃ§Ã£o que recebe dois Ã­ndices, o tabuleiro e um valor (por default o valor Ã© 1). A funÃ§Ã£o deverÃ¡ retornar o tabuleiro com a cÃ©lula substituÃ­da pelo valor pretendido.
 (defun substituir (indiceLinha indiceColuna tabuleiro &optional (valor 1))
   (cond
      ((= indiceLinha 0) (cons (substituir-posicao indiceColuna (car tabuleiro) valor) (cdr tabuleiro)))
@@ -72,20 +72,30 @@
    )
 )
 
-;;; Função que recebe dois índices e um tipo de peça (quadrado-1x1, quadrado-2x2 ou cruz) e retorna uma lista
-; com os pares de índices correspondentes às posições que irá ser colocada a peça. Para todas as peças vamos assumir que os índices
-; passados como argumento para a função serão referentes à casa do canto superior esquerdo. No caso da cruz assumimos uma
-; mancha de um quadrado 3x3 cujo ponto de referência será o canto superior esquerdo apesar de ser uma casa que não ficará
-; preenchida, mas que mantém uniforme o ponto de referência para todas as peças
+;;; FunÃ§Ã£o que recebe dois Ã­ndices e um tipo de peÃ§a (quadrado-1x1, quadrado-2x2 ou cruz) e retorna uma lista
+; com os pares de Ã­ndices correspondentes Ã s posiÃ§Ãµes que irÃ¡ ser colocada a peÃ§a. Para todas as peÃ§as vamos assumir que os Ã­ndices
+; passados como argumento para a funÃ§Ã£o serÃ£o referentes Ã  casa do canto superior esquerdo. No caso da cruz assumimos uma
+; mancha de um quadrado 3x3 cujo ponto de referÃªncia serÃ¡ o canto superior esquerdo apesar de ser uma casa que nÃ£o ficarÃ¡
+; preenchida, mas que mantÃ©m uniforme o ponto de referÃªncia para todas as peÃ§as
 (defun peca-casas-ocupadas (indiceLinha indiceColuna tipoPeca)
   (cond
      ((eql tipoPeca 'quadrado-1x1) (cons (list indiceLinha indiceColuna) '()))
-     ;;((eql tipoPeca 'quadrado-2x2) (cons (cons (cons () (list (+ indiceLinha 1) )) (list (+ indiceLinha 1) (+ indiceColuna 1)) '()))
-
      ((eql tipoPeca 'quadrado-2x2) (append (peca-casas-ocupadas indiceLinha indiceColuna 'quadrado-1x1)
                                            (peca-casas-ocupadas indiceLinha (+ indiceColuna 1) 'quadrado-1x1)
                                            (peca-casas-ocupadas (+ indiceLinha 1) indiceColuna 'quadrado-1x1)
-                                           (peca-casas-ocupadas indiceLinha (+ indiceColuna 1) 'quadrado-1x1)))
+                                           (peca-casas-ocupadas (+ indiceLinha 1) (+ indiceColuna 1) 'quadrado-1x1)))
+     ((eql tipoPeca 'cruz) (append (peca-casas-ocupadas indiceLinha (+ indiceColuna 1) 'quadrado-1x1)
+                                   (peca-casas-ocupadas (+ indiceLinha 1) (+ indiceColuna 1) 'quadrado-1x1)
+                                   (peca-casas-ocupadas (+ indiceLinha 2) (+ indiceColuna 1) 'quadrado-1x1)
+                                   (peca-casas-ocupadas (+ indiceLinha 1) indiceColuna 'quadrado-1x1)
+                                   (peca-casas-ocupadas (+ indiceLinha 1) (+ indiceColuna 2) 'quadrado-1x1)))
+     ((eql tipoPeca 'barra) (append (peca-casas-ocupadas indiceLinha indiceColuna 'quadrado-1x1)
+                                    (peca-casas-ocupadas indiceLinha (+ indiceColuna 1) 'quadrado-1x1)
+                                    (peca-casas-ocupadas indiceLinha (+ indiceColuna 2) 'quadrado-1x1)))
+     ((eql tipoPeca 't-invertido) (append (peca-casas-ocupadas indiceLinha (+ indiceColuna 1) 'quadrado-1x1)
+                                          (peca-casas-ocupadas (+ indiceLinha 1) (+ indiceColuna 1) 'quadrado-1x1)
+                                          (peca-casas-ocupadas (+ indiceLinha 1) indiceColuna 'quadrado-1x1)
+                                          (peca-casas-ocupadas (+ indiceLinha 1) (+ indiceColuna 2) 'quadrado-1x1)))
   )
 )
 
